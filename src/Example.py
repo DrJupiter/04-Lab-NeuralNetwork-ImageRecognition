@@ -52,18 +52,6 @@ model = torch.nn.Sequential(
     torch.nn.ReLU(),
     torch.nn.Linear(H, H),
     torch.nn.ReLU(),
-    torch.nn.Linear(H, H),
-    torch.nn.ReLU(),
-    torch.nn.Linear(H, H),
-    torch.nn.ReLU(),
-    torch.nn.Linear(H, H),
-    torch.nn.ReLU(),
-    torch.nn.Linear(H, H),
-    torch.nn.ReLU(),
-    torch.nn.Linear(H, H),
-    torch.nn.ReLU(),
-    torch.nn.Linear(H, H),
-    torch.nn.ReLU(),
     torch.nn.Linear(H, 1),
 )
 model.to(device)
@@ -75,6 +63,8 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 # optimizer which Tensors it should update.
 learning_rate = 1e-3
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+
 
 # Number of iterations
 T = 5000
@@ -105,11 +95,11 @@ for t in range(T):
     optimizer.step()    
 
 plt.plot(Loss)
-plt.grid(True);
+plt.grid(True)
 
 # Plot training data and fit
 plt.subplot(121)
-plt.plot(x_train, y_train, 'g.');
+plt.plot(x_train, y_train, 'g.')
 plt.plot(x_train, y_pred.cpu().detach().numpy(), 'r.')
 train_error = loss_fn(y_pred, y).item()
 plt.title('Training error: {:.2f}'.format(train_error))
@@ -121,8 +111,10 @@ x_all = np.linspace(-1,1,1000)
 x_all_t = torch.tensor(np.expand_dims(x_all,1), dtype=torch.float32, device=device)
 y_all_t = model(x_all_t)
 plt.subplot(122)
-plt.plot(x_all, y_all_t.cpu().detach().numpy(), 'r-');
+plt.plot(x_all, y_all_t.cpu().detach().numpy(), 'r-')
 plt.plot(x_test, y_t_pred.cpu().detach().numpy(), 'r.')
-plt.plot(x_test, y_test, 'b.');
+plt.plot(x_test, y_test, 'b.')
 test_error = loss_fn(y_t_pred, y_t).item()
-plt.title('Test error: {:.2f}'.format(test_error));
+plt.title('Test error: {:.2f}'.format(test_error))
+
+plt.show()
