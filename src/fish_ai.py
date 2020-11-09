@@ -35,7 +35,7 @@ H = int(sys.argv[3])
 
 #TODO størrelsen af imput vektoren afhænger af fildata, så hvis vi gerne vil bevare størrelsesforholdet  billedet, bliver vi nødt til at lade imputtet
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
-
+"""
 IMG_FLATTEN = 256*256
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
@@ -74,10 +74,8 @@ torch.nn.Linear(H, H),
 torch.nn.Sigmoid(),
 torch.nn.Linear(H, 2)
 )
-
-X = [int(H/2**x) for x in range(0,11)]
-
 """
+X = [int(H/2**x) for x in range(0,11)]
 
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
@@ -96,7 +94,7 @@ torch.nn.Linear(X[2], X[3]),
 torch.nn.Sigmoid(),
 torch.nn.Linear(X[3], X[4]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(X[4], X[5])),
+torch.nn.Linear(X[4], X[5]),
 torch.nn.Sigmoid(),
 torch.nn.Linear(X[5], X[6]),
 torch.nn.Sigmoid(),
@@ -111,7 +109,7 @@ torch.nn.Sigmoid(),
 torch.nn.Linear(X[10], 2)
 )
 
-"""
+
 model.to(device)
 
 
