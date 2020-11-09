@@ -52,5 +52,5 @@ model.eval()
 img = imread(sys.argv[2])
 data = torch.from_numpy(img.flatten())
 data = data.type(torch.FloatTensor).to(device)
-
-print(model(data))
+result = model(data)
+print(result[0] > result[1])
