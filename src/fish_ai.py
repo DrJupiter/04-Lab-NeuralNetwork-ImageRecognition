@@ -21,8 +21,8 @@ y = [fish,not_fish]
 y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
-#Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
-Loss_fn = torch.nn.MSELoss(reduction='sum')
+Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
+#Loss_fn = torch.nn.MSELoss(reduction='sum')
 
 H = int(sys.argv[3])
 
@@ -139,7 +139,7 @@ torch.nn.Linear(64, 32),
 torch.nn.ReLU(),
 torch.nn.Linear(32, 16),
 torch.nn.Sigmoid(),
-torch.nn.Linear(16, 2)
+torch.nn.Linear(16, 1)
 )
 
 model.to(device)
@@ -161,7 +161,7 @@ random.seed()
 
 for t in range(T):
 
-    img, label = new_img_label(images, random.randint(0,N_IMG)) 
+    img, label = new_img_label2(images, random.randint(0,N_IMG)) 
     label = torch.tensor(label, dtype=torch.float32).to(device)
 
     # Definer modellens forudsagte y-værdier

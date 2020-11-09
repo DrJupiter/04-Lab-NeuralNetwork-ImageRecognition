@@ -50,7 +50,7 @@ def new_img_label2(files, index):
     print(file)
     img = imread(f'{file}')
     if file.find("fish") > 0:
-        label = 1
+        label = np.array([1])
     else:
-        label = 0
+        label = np.array([0])
     return img, label
