@@ -21,8 +21,8 @@ y = [fish,not_fish]
 y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
-Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
-#Loss_fn = torch.nn.MSELoss(reduction='sum')
+#Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
+Loss_fn = torch.nn.MSELoss(reduction='sum')
 
 H = int(sys.argv[3])
 
@@ -105,7 +105,7 @@ torch.nn.Linear(23, 11),
 torch.nn.ReLU(),
 torch.nn.Linear(11, 5),
 torch.nn.Sigmoid(),
-torch.nn.Linear(5, 1)
+torch.nn.Linear(5, 2)
 )
 """
 
