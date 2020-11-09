@@ -78,7 +78,7 @@ torch.nn.Linear(H, 2)
 X = [int(H/2**x) for x in range(0,11)]
 
 X = np.array(X)
-
+"""
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.ReLU(),
@@ -110,7 +110,38 @@ torch.nn.Linear(11, 5),
 torch.nn.Sigmoid(),
 torch.nn.Linear(5, 2)
 )
+"""
 
+model = torch.nn.Sequential(
+torch.nn.Linear(IMG_FLATTEN, H),
+torch.nn.ReLU(),
+torch.nn.Linear(H, H),
+torch.nn.ReLU(),
+torch.nn.Linear(H, 5000),
+torch.nn.ReLU(),
+torch.nn.Linear(5000, 5000),
+torch.nn.ReLU(),
+torch.nn.Linear(5000, 2500),
+torch.nn.ReLU(),
+torch.nn.Linear(2500, 2500),
+torch.nn.ReLU(),
+torch.nn.Linear(2500, 1250),
+torch.nn.ReLU(),
+torch.nn.Linear(1250, 700),
+torch.nn.ReLU(),
+torch.nn.Linear(700, 350),
+torch.nn.ReLU(),
+torch.nn.Linear(350, 175),
+torch.nn.ReLU(),
+torch.nn.Linear(175, 90),
+torch.nn.ReLU(),
+torch.nn.Linear(90, 45),
+torch.nn.ReLU(),
+torch.nn.Linear(45, 20),
+torch.nn.ReLU(),
+torch.nn.Linear(20, 8),
+torch.nn.Sigmoid(),
+torch.nn.Linear(8, 2)
 
 model.to(device)
 
