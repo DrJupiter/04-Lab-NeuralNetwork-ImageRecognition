@@ -105,7 +105,7 @@ torch.nn.Linear(23, 11),
 torch.nn.ReLU(),
 torch.nn.Linear(11, 5),
 torch.nn.Sigmoid(),
-torch.nn.Linear(5, 2)
+torch.nn.Linear(5, 1)
 )
 """
 
