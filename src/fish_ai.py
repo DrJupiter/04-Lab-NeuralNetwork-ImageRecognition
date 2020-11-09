@@ -1,5 +1,8 @@
 import torch
 import numpy as np
+import random
+import glob
+from image_preprocessing import new_img_label
 
 """
 y = [fish,not_fish]
@@ -22,7 +25,7 @@ H = 10
 #TODO størrelsen af imput vektoren afhænger af fildata, så hvis vi gerne vil bevare størrelsesforholdet  billedet, bliver vi nødt til at lade imputtet
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
 
-IMG_FLATTEN = 256*256*2
+IMG_FLATTEN = 256*256
 
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
@@ -44,23 +47,37 @@ learning_rate = 1e-3
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 # Number of iterations
-T = 500
+T = 5
 
 # Allocate space for loss
 Loss = np.zeros(T)
 
 
-# Number of iterations
-T = 100
 # Allocate space for loss
 Loss = np.zeros(T)
+
+# Training images
+input_dir = "/home/klaus/Desktop/DTU-IntroAI/04-Lab-NeuralNetwork-ImageRecognition/training data/*"
+images = glob.glob(f"{input_dir}")
+N_IMG = len(images)-1
+
+#Initialize generator
+random.seed()
+
 
 for t in range(T):
+
+    img, label = new_img_label(images, random.randint(0,N_IMG)) 
+    label = torch.tensor(label, dtype=torch.float32)
+
     # Definer modellens forudsagte y-værdier
-    y_pred = model(x)
+#    print((torch.flatten(torch.from_numpy(img))).size())
+    data = torch.from_numpy(img.flatten())
+    data = data.type(torch.FloatTensor)
+    y_pred = model(data)
 
     # Compute and save loss.
-    loss = loss_fn(y_pred, y)
+    loss = Loss_fn(y_pred, label)
     Loss[t] = loss.item()
 
     # Before the backward pass, use the optimizer object to zero all of the
@@ -78,5 +95,17 @@ for t in range(T):
     # parameters
     optimizer.step()    
 
+# Print model's state_dict
+print("Model's state_dict:")
+for param_tensor in model.state_dict():
+    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
 
-)
+# Print optimizer's state_dict
+print("Optimizer's state_dict:")
+for var_name in optimizer.state_dict():
+    print(var_name, "\t", optimizer.state_dict()[var_name])
+
+PATH = "../Model/result"
+
+torch.save(model.state_dict(), PATH)
+
