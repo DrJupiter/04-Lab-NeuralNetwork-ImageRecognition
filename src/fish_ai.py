@@ -50,3 +50,33 @@ T = 500
 Loss = np.zeros(T)
 
 
+# Number of iterations
+T = 100
+# Allocate space for loss
+Loss = np.zeros(T)
+
+for t in range(T):
+    # Definer modellens forudsagte y-værdier
+    y_pred = model(x)
+
+    # Compute and save loss.
+    loss = loss_fn(y_pred, y)
+    Loss[t] = loss.item()
+
+    # Before the backward pass, use the optimizer object to zero all of the
+    # gradients for the variables it will update (which are the learnable
+    # weights of the model). This is because by default, gradients are
+    # accumulated in buffers( i.e, not overwritten) whenever .backward()
+    # is called. Checkout docs of torch.autograd.backward for more details.
+    optimizer.zero_grad()
+
+    # Backward pass: compute gradient of the loss with respect to model
+    # parameters
+    loss.backward()
+
+    # Calling the step function on an Optimizer makes an update to its
+    # parameters
+    optimizer.step()    
+
+
+)
