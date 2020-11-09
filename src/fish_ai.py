@@ -37,6 +37,9 @@ H = int(sys.argv[3])
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
 
 IMG_FLATTEN = 256*256
+
+
+"""
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
@@ -97,7 +100,7 @@ torch.nn.Linear(8192, 4096),
 torch.nn.Sigmoid(),
 torch.nn.Linear(4096, 2048),
 torch.nn.Sigmoid(),
-torch.nn.Linear(2048, 1024)),
+torch.nn.Linear(2048, 1024),
 torch.nn.Sigmoid(),
 torch.nn.Linear(1024, 512),
 torch.nn.Sigmoid(),
@@ -116,7 +119,7 @@ torch.nn.Sigmoid(),
 torch.nn.Linear(8, 2)
 )
 
-"""
+
 model.to(device)
 
 
