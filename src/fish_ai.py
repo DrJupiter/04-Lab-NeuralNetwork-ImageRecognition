@@ -38,17 +38,17 @@ IMG_FLATTEN = 256*256
 
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
-torch.nn.Tanh(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
-torch.nn.Tanh(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
-torch.nn.Tanh(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
-torch.nn.Tanh(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
-torch.nn.Tanh(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
-torch.nn.Tanh(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, 2)
 )
 
