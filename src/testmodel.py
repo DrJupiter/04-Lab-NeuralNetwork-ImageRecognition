@@ -8,7 +8,7 @@ PATH_TO_MODEL = sys.argv[1]
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 IMG_FLATTEN = 256*256
-H = 10
+H = int(sys.argv[3])
 
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),

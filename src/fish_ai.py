@@ -22,7 +22,7 @@ y_prime = [% fish, % not_fish]
 # sum((y-y_prime)^2), but not divided by n
 Loss_fn = torch.nn.MSELoss(reduction='sum')
 
-H = 10
+H = int(sys.argv[3])
 
 # 10 -> 2
 # 256,256, 2
@@ -55,7 +55,7 @@ torch.nn.Linear(H, 2)
 model.to(device)
 
 
-learning_rate = 1e-3
+learning_rate = float(sys.argv[4])
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 # Number of iterations
