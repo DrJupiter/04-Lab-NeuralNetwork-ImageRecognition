@@ -22,7 +22,7 @@ y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
 #Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
-Loss_fn = torch.nn.MSELoss(reduction='mean')
+Loss_fn = torch.nn.MSELoss(reduction='sum')
 
 H = int(sys.argv[3])
 
@@ -35,8 +35,8 @@ H = int(sys.argv[3])
 
 #TODO størrelsen af imput vektoren afhænger af fildata, så hvis vi gerne vil bevare størrelsesforholdet  billedet, bliver vi nødt til at lade imputtet
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
-"""
 IMG_FLATTEN = 256*256
+"""
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
@@ -76,6 +76,8 @@ torch.nn.Linear(H, 2)
 )
 """
 X = [int(H/2**x) for x in range(0,11)]
+
+X = np.array(X)
 
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
