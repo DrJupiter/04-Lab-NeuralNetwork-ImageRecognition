@@ -35,11 +35,8 @@ H = int(sys.argv[3])
 
 #TODO størrelsen af imput vektoren afhænger af fildata, så hvis vi gerne vil bevare størrelsesforholdet  billedet, bliver vi nødt til at lade imputtet
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
-
-IMG_FLATTEN = 256*256
-
-
 """
+IMG_FLATTEN = 256*256
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
@@ -78,41 +75,38 @@ torch.nn.Sigmoid(),
 torch.nn.Linear(H, 2)
 )
 """
+X = [int(H/2**x) for x in range(0,11)]
 
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
 torch.nn.Sigmoid(),
-torch.nn.Linear(H, 65536),
+torch.nn.Linear(H, X[0]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(65536, 32768),
+torch.nn.Linear(X[0], X[0]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(32768, 16384),
+torch.nn.Linear(X[0], X[1]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(16384, 8192),
+torch.nn.Linear(X[1], X[2]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(8192, 4096),
+torch.nn.Linear(X[2], X[3]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(4096, 2048),
+torch.nn.Linear(X[3], X[4]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(2048, 1024),
+torch.nn.Linear(X[4], X[5]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(1024, 512),
+torch.nn.Linear(X[5], X[6]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(512, 256),
+torch.nn.Linear(X[6], X[7]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(256, 128),
+torch.nn.Linear(X[7], X[8]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(128, 64),
+torch.nn.Linear(X[8], X[9]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(64, 32),
+torch.nn.Linear(X[9], X[10]),
 torch.nn.Sigmoid(),
-torch.nn.Linear(32, 16),
-torch.nn.Sigmoid(),
-torch.nn.Linear(16, 8),
-torch.nn.Sigmoid(),
-torch.nn.Linear(8, 2)
+torch.nn.Linear(X[10], 2)
 )
 
 
