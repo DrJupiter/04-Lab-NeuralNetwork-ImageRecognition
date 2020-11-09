@@ -79,8 +79,6 @@ torch.nn.Linear(H, 2)
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, IMG_FLATTEN),
 torch.nn.Sigmoid(),
-torch.nn.Linear(IMG_FLATTEN, IMG_FLATTEN),
-torch.nn.Sigmoid(),
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
