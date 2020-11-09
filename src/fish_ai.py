@@ -4,6 +4,14 @@ import random
 import glob
 from image_preprocessing import new_img_label
 
+import sys
+
+
+# Training images
+input_dir, output_dir = sys.argv[1:3] 
+images = glob.glob(f"{input_dir}/*")
+N_IMG = len(images)-1
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 print(device)
@@ -13,8 +21,6 @@ y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
 Loss_fn = torch.nn.MSELoss(reduction='sum')
-
-print("")
 
 H = 10
 
@@ -62,11 +68,6 @@ Loss = np.zeros(T)
 # Allocate space for loss
 Loss = np.zeros(T)
 
-# Training images
-input_dir = "/home/klaus/Desktop/DTU-IntroAI/04-Lab-NeuralNetwork-ImageRecognition/training data/*"
-images = glob.glob(f"{input_dir}")
-N_IMG = len(images)-1
-
 #Initialize generator
 random.seed()
 
@@ -111,7 +112,11 @@ print("Optimizer's state_dict:")
 for var_name in optimizer.state_dict():
     print(var_name, "\t", optimizer.state_dict()[var_name])
 
-PATH = "../Model/result"
+print(Loss)
+np.savetxt(f"{output_dir}/loss.txt", Loss, delimiter=",")
 
-torch.save(model.state_dict(), PATH)
+#with open(f"{output_dir}/loss.txt", "w") as txt_file:
+#    for line in Loss:
+#        txt_file.write(" ".join(line) + "\n")
 
+torch.save(model.state_dict(), f"{output_dir}/Result")
