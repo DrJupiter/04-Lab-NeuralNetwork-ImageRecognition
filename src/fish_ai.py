@@ -4,6 +4,9 @@ import random
 import glob
 from image_preprocessing import new_img_label
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+print(device)
 """
 y = [fish,not_fish]
 y_prime = [% fish, % not_fish]
@@ -43,6 +46,9 @@ torch.nn.Tanh(),
 torch.nn.Linear(H, 2)
 )
 
+model.to(device)
+
+
 learning_rate = 1e-3
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -68,12 +74,12 @@ random.seed()
 for t in range(T):
 
     img, label = new_img_label(images, random.randint(0,N_IMG)) 
-    label = torch.tensor(label, dtype=torch.float32)
+    label = torch.tensor(label, dtype=torch.float32).to(device)
 
     # Definer modellens forudsagte y-værdier
 #    print((torch.flatten(torch.from_numpy(img))).size())
     data = torch.from_numpy(img.flatten())
-    data = data.type(torch.FloatTensor)
+    data = data.type(torch.FloatTensor).to(device)
     y_pred = model(data)
 
     # Compute and save loss.
