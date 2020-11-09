@@ -14,13 +14,15 @@ N_IMG = len(images)-1
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+
 print(device)
 """
 y = [fish,not_fish]
 y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
-Loss_fn = torch.nn.MSELoss(reduction='sum')
+Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
+#Loss_fn = torch.nn.MSELoss(reduction='sum')
 
 H = int(sys.argv[3])
 
@@ -35,7 +37,7 @@ H = int(sys.argv[3])
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
 
 IMG_FLATTEN = 256*256
-
+"""
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
@@ -73,8 +75,45 @@ torch.nn.Linear(H, H),
 torch.nn.Sigmoid(),
 torch.nn.Linear(H, 2)
 )
+"""
+
+model = torch.nn.Sequential(
+torch.nn.Linear(IMG_FLATTEN, H),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H, H),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H, H/2),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2, H/2^2),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^2, H/2^3),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^3, H/2^4),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^4, H/2^5),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^5, H/2^6),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^6, h/2^7),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^7, H/2^8),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^8, H/2^9),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^9, H/2^10),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^10, H/2^11),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^11, H/2^12),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^12, H/2^13),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^13, H/2^14),
+torch.nn.Sigmoid(),
+torch.nn.Linear(H/2^14, 2)
 
 model.to(device)
+
 
 
 learning_rate = float(sys.argv[4])
