@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import random
 import glob
-from image_preprocessing import new_img_label
+from image_preprocessing import new_img_label, new_img_label2
 
 import sys
 
@@ -21,8 +21,8 @@ y = [fish,not_fish]
 y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
-Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
-#Loss_fn = torch.nn.MSELoss(reduction='sum')
+#Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
+Loss_fn = torch.nn.MSELoss(reduction='mean')
 
 H = int(sys.argv[3])
 
@@ -37,7 +37,6 @@ H = int(sys.argv[3])
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
 
 IMG_FLATTEN = 256*256
-"""
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.Sigmoid(),
@@ -84,34 +83,36 @@ torch.nn.Linear(H, H),
 torch.nn.Sigmoid(),
 torch.nn.Linear(H, int(H/2)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2), int(H/2^2)),
+torch.nn.Linear(int(H/2), int(H/2**2)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^2), int(H/2^3)),
+torch.nn.Linear(int(H/2**2), int(H/2**3)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^3), int(H/2^4)),
+torch.nn.Linear(int(H/2**3), int(H/2**4)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^4), int(H/2^5)),
+torch.nn.Linear(int(H/2**4), int(H/2**5)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^5), int(H/2^6)),
+torch.nn.Linear(int(H/2**5), int(H/2**6)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^6), int(h/2^7)),
+torch.nn.Linear(int(H/2**6), int(H/2**7)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^7), int(H/2^8)),
+torch.nn.Linear(int(H/2**7), int(H/2**8)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^8), int(H/2^9)),
+torch.nn.Linear(int(H/2**8), int(H/2**9)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^9), int(H/2^10)),
+torch.nn.Linear(int(H/2**9), int(H/2**10)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^10), int(H/2^11)),
+torch.nn.Linear(int(H/2**10), int(H/2**11)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^11), int(H/2^12)),
+torch.nn.Linear(int(H/2**11), int(H/2**12)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^12), int(H/2^13)),
+torch.nn.Linear(int(H/2**12), int(H/2**13)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^13), int(H/2^14)),
+torch.nn.Linear(int(H/2**13), int(H/2**14)),
 torch.nn.Sigmoid(),
-torch.nn.Linear(int(H/2^14), 1)
+torch.nn.Linear(int(H/2**14), 2)
+)
 
+"""
 model.to(device)
 
 
@@ -121,10 +122,6 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 # Number of iterations
 T = int(sys.argv[5])
-
-# Allocate space for loss
-Loss = np.zeros(T)
-
 
 # Allocate space for loss
 Loss = np.zeros(T)
