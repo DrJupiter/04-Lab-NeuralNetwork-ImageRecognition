@@ -76,7 +76,6 @@ torch.nn.Linear(H, 2)
 )
 """
 
-"""
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
 torch.nn.ReLU(),
@@ -141,6 +140,7 @@ torch.nn.Linear(32, 16),
 torch.nn.Sigmoid(),
 torch.nn.Linear(16, 1)
 )
+"""
 
 model.to(device)
 
