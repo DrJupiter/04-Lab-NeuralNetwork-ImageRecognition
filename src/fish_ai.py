@@ -22,7 +22,7 @@ y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
 #Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
-Loss_fn = torch.nn.MSELoss(reduction='sum')
+Loss_fn = torch.nn.MSELoss(reduction='mean')
 
 H = int(sys.argv[3])
 
@@ -75,41 +75,42 @@ torch.nn.Sigmoid(),
 torch.nn.Linear(H, 2)
 )
 """
-X = [int(H/2**x) for x in range(0,11)]
 
-X = np.array(X)
-"""
 model = torch.nn.Sequential(
+torch.nn.Linear(IMG_FLATTEN, IMG_FLATTEN),
+torch.nn.Sigmoid(),
 torch.nn.Linear(IMG_FLATTEN, H),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, H),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(H, 3000),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(3000, 3000),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(3000, 1500),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(1500, 1500),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(1500, 750),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(750, 375),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(375, 187),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(187, 93),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(93, 46),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(46, 23),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(23, 11),
-torch.nn.ReLU(),
+torch.nn.Sigmoid(),
 torch.nn.Linear(11, 5),
 torch.nn.Sigmoid(),
-torch.nn.Linear(5, 2)
+torch.nn.Linear(5, 1)
 )
+
+
 """
 
 model = torch.nn.Sequential(
@@ -141,8 +142,9 @@ torch.nn.Linear(64, 32),
 torch.nn.ReLU(),
 torch.nn.Linear(32, 16),
 torch.nn.Sigmoid(),
-torch.nn.Linear(16, 2)
+torch.nn.Linear(16, 1)
 )
+"""
 
 model.to(device)
 
@@ -163,7 +165,7 @@ random.seed()
 
 for t in range(T):
 
-    img, label = new_img_label(images, random.randint(0,N_IMG)) 
+    img, label = new_img_label2(images, random.randint(0,N_IMG)) 
     label = torch.tensor(label, dtype=torch.float32).to(device)
 
     # Definer modellens forudsagte y-værdier
@@ -192,14 +194,14 @@ for t in range(T):
     optimizer.step()    
 
 # Print model's state_dict
-print("Model's state_dict:")
-for param_tensor in model.state_dict():
-    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
-
-# Print optimizer's state_dict
-print("Optimizer's state_dict:")
-for var_name in optimizer.state_dict():
-    print(var_name, "\t", optimizer.state_dict()[var_name])
+#print("Model's state_dict:")
+#for param_tensor in model.state_dict():
+#    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
+#
+## Print optimizer's state_dict
+#print("Optimizer's state_dict:")
+#for var_name in optimizer.state_dict():
+#    print(var_name, "\t", optimizer.state_dict()[var_name])
 
 print(Loss)
 np.savetxt(f"{output_dir}/loss.txt", Loss, delimiter=",")
