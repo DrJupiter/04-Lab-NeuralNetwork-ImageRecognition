@@ -105,7 +105,7 @@ torch.nn.Linear(23, 11),
 torch.nn.ReLU(),
 torch.nn.Linear(11, 5),
 torch.nn.Sigmoid(),
-torch.nn.Linear(5, 2)
+torch.nn.Linear(5, 1)
 )
 
 
@@ -192,14 +192,14 @@ for t in range(T):
     optimizer.step()    
 
 # Print model's state_dict
-print("Model's state_dict:")
-for param_tensor in model.state_dict():
-    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
-
-# Print optimizer's state_dict
-print("Optimizer's state_dict:")
-for var_name in optimizer.state_dict():
-    print(var_name, "\t", optimizer.state_dict()[var_name])
+#print("Model's state_dict:")
+#for param_tensor in model.state_dict():
+#    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
+#
+## Print optimizer's state_dict
+#print("Optimizer's state_dict:")
+#for var_name in optimizer.state_dict():
+#    print(var_name, "\t", optimizer.state_dict()[var_name])
 
 print(Loss)
 np.savetxt(f"{output_dir}/loss.txt", Loss, delimiter=",")
