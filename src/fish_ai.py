@@ -22,7 +22,7 @@ y_prime = [% fish, % not_fish]
 """
 # sum((y-y_prime)^2), but not divided by n
 #Loss_fn = torch.nn.BCELoss(reduction='sum') #mean
-Loss_fn = torch.nn.MSELoss(reduction='sum')
+Loss_fn = torch.nn.MSELoss(reduction='mean')
 
 H = int(sys.argv[3])
 
