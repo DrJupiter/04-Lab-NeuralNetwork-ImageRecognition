@@ -59,7 +59,7 @@ learning_rate = 1e-3
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 # Number of iterations
-T = 5
+T = 13000
 
 # Allocate space for loss
 Loss = np.zeros(T)

@@ -17,17 +17,17 @@ def convert_images(input_dir,output_dir):
         if len(image_raw.shape) > 3:
             image_raw = image_raw[:, :, :3]
         
-        print(image_raw.shape, f"File number {key} out of {len(files)}")
+        print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
         image_width = 256
         try:
             new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
             new_img = rgb2gray(new_img[:, :, :3])
-            imwrite(f"{output_dir}/fish{key}.png", new_img)
+            imwrite(f"{output_dir}/{key}.png", new_img)
         except:
             pass
         
-dirq = "/home/klaus/Desktop/DTU-IntroAI/04-Lab-NeuralNetwork-ImageRecognition/training data/"
-convert_images(f"{dirq}", f"{dirq}")
+dirq = "PATH"
+convert_images(f"{dirq}", f"OUT")
 #convert_images("D:\Pictures\lab4 test\QUT_fish_data\QUT_fish_data\images\\raw_images" , "D:\Pictures\lab4 test\Out")
 
 import re
