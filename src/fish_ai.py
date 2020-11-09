@@ -75,9 +75,7 @@ torch.nn.Sigmoid(),
 torch.nn.Linear(H, 2)
 )
 """
-X = [int(H/2**x) for x in range(0,11)]
 
-X = np.array(X)
 """
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
