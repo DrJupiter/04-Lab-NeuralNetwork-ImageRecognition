@@ -107,6 +107,8 @@ torch.nn.Linear(11, 5),
 torch.nn.Sigmoid(),
 torch.nn.Linear(5, 2)
 )
+
+
 """
 
 model = torch.nn.Sequential(

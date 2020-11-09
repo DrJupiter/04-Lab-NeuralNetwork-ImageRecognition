@@ -10,20 +10,37 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 IMG_FLATTEN = 256*256
 H = int(sys.argv[3])
 
+
 model = torch.nn.Sequential(
 torch.nn.Linear(IMG_FLATTEN, H),
-torch.nn.Tanh(),
+torch.nn.ReLU(),
 torch.nn.Linear(H, H),
-torch.nn.Tanh(),
-torch.nn.Linear(H, H),
-torch.nn.Tanh(),
-torch.nn.Linear(H, H),
-torch.nn.Tanh(),
-torch.nn.Linear(H, H),
-torch.nn.Tanh(),
-torch.nn.Linear(H, H),
-torch.nn.Tanh(),
-torch.nn.Linear(H, 2)
+torch.nn.ReLU(),
+torch.nn.Linear(H, 3000),
+torch.nn.ReLU(),
+torch.nn.Linear(3000, 3000),
+torch.nn.ReLU(),
+torch.nn.Linear(3000, 1500),
+torch.nn.ReLU(),
+torch.nn.Linear(1500, 1500),
+torch.nn.ReLU(),
+torch.nn.Linear(1500, 750),
+torch.nn.ReLU(),
+torch.nn.Linear(750, 375),
+torch.nn.ReLU(),
+torch.nn.Linear(375, 187),
+torch.nn.ReLU(),
+torch.nn.Linear(187, 93),
+torch.nn.ReLU(),
+torch.nn.Linear(93, 46),
+torch.nn.ReLU(),
+torch.nn.Linear(46, 23),
+torch.nn.ReLU(),
+torch.nn.Linear(23, 11),
+torch.nn.ReLU(),
+torch.nn.Linear(11, 5),
+torch.nn.Sigmoid(),
+torch.nn.Linear(5, 2)
 )
 
 model.to(device)
