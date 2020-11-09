@@ -21,35 +21,4 @@ def convert_images(input_dir,output_dir):
         #new_img = rescale(new_img, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
         new_img = rgb2gray(new_img[:, :, :3])
         print(new_img.shape)
-        imwrite(f"{output_dir}\{os.path.basename(file)}.png", new_img)
-
-
-convert_images("D:\Pictures\lab4 test" , "D:\Pictures\lab4 test")
-
-
-
-"""
-#image_raw = imread('D:\Pictures\lab4 test\earth.jpg')
-
-image_width = 256
-image = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)
-
-new_img = rgb2gray(image[:, :, :3])
-
-print(image_raw.shape)
-print(image.shape)
-
-plt.figure()
-plt.imshow(new_img)
-plt.axis('off')
-"""
-
-"""
-image_raw = imread('lab 3 1984.jpg')
-image_width = 100
-    #image = rescale(image_raw, image_width/image_raw.shape[0], mode='reflect', multichannel=True, anti_aliasing=True)
-shape = image.shape
-plt.figure()
-plt.imshow(image)
-plt.axis('off');
-"""
+        imwrite(f"{output_dir}/{os.path.basename(file)}.png", new_img)

@@ -5,6 +5,7 @@ import numpy as np
 y = [fish,not_fish]
 y_prime = [% fish, % not_fish]
 """
+# sum((y-y_prime)^2), but not divided by n
 Loss_fn = torch.nn.MSELoss(reduction='sum')
 
 print("")
@@ -21,24 +22,31 @@ H = 10
 #TODO størrelsen af imput vektoren afhænger af fildata, så hvis vi gerne vil bevare størrelsesforholdet  billedet, bliver vi nødt til at lade imputtet
 #til vores NN være afhængingt at billdet, medmindre alt vores data har samme dimensioner. Det har jeg ingen anelse om
 
-model = torch.nn.Sequential(
-torch.nn.Linear(2,H),
-torch.nn.Tanh(),
-torch.nn.Linear(H,H),
-torch.nn.Tanh(),
-torch.nn.Linear(H,H),
-torch.nn.Tanh(),
-torch.nn.Linear(H,H),
-torch.nn.Tanh(),
-torch.nn.Linear(H,H),
-torch.nn.Tanh(),
-torch.nn.Linear(H,H),
-torch.nn.Tanh(),
-torch.nn.Linear(H,2)
-"""
-    torch.nn.Linear(1, H),
-    torch.nn.ReLU(),
-    torch.nn.Linear(H, 1),
-"""
+IMG_FLATTEN = 256*256*2
 
+model = torch.nn.Sequential(
+torch.nn.Linear(IMG_FLATTEN, H),
+torch.nn.Tanh(),
+torch.nn.Linear(H, H),
+torch.nn.Tanh(),
+torch.nn.Linear(H, H),
+torch.nn.Tanh(),
+torch.nn.Linear(H, H),
+torch.nn.Tanh(),
+torch.nn.Linear(H, H),
+torch.nn.Tanh(),
+torch.nn.Linear(H, H),
+torch.nn.Tanh(),
+torch.nn.Linear(H, 2)
 )
+
+learning_rate = 1e-3
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+# Number of iterations
+T = 500
+
+# Allocate space for loss
+Loss = np.zeros(T)
+
+
