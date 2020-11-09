@@ -142,6 +142,7 @@ torch.nn.ReLU(),
 torch.nn.Linear(20, 8),
 torch.nn.Sigmoid(),
 torch.nn.Linear(8, 2)
+)
 
 model.to(device)
 
