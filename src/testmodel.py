@@ -93,4 +93,4 @@ test_images(sys.argv[2])
 
 with open(f"{sys.argv[4]}/results.txt", "w") as txt_file:
     for line in results:
-        txt_file.write("{}".format(line) + "\n")
+        txt_file.write("{}{}".format(line[0].numpy()[0], line[1]) + "\n")
