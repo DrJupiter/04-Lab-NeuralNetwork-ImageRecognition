@@ -1,7 +1,7 @@
 # model-path, test-path, h, out-path 
 import torch
 from imageio import imread
-
+import numpy as np
 from skimage.color import rgb2gray
 from skimage.transform import rescale, resize
 import glob
