@@ -69,7 +69,6 @@ results = []
 
 def test_images(input_dir):
     files = glob.glob(f"{input_dir}/*")
-    failed = 0
     for key, file in enumerate(files):
         image_raw = imread(f'{file}')
         if len(image_raw.shape) > 3:
@@ -84,7 +83,6 @@ def test_images(input_dir):
         data = data.type(torch.FloatTensor).to(device)
         result = model(data)
         results.append(result/10000) 
-    print(failed)
 
 
 test_images(sys.argv[2])
