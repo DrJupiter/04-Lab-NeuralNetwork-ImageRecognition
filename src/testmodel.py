@@ -1,6 +1,9 @@
 # model-path, test-path, h, out-path 
 import torch
 from imageio import imread
+
+from skimage.color import rgb2gray
+from skimage.transform import rescale, resize
 import glob
 
 import sys
@@ -63,10 +66,9 @@ model.eval()
 
 results = []
 
-failed = 0
-
 def test_images(input_dir):
     files = glob.glob(f"{input_dir}/*")
+    failed = 0
     for key, file in enumerate(files):
         image_raw = imread(f'{file}')
      #   new_img = rgb2gray(image_raw[:, :, :3])
@@ -84,6 +86,7 @@ def test_images(input_dir):
             results.append(result/10000) 
         except:
             failed = 1 + failed
+    print(failed)
 
 test_images(sys.argv[2])
 

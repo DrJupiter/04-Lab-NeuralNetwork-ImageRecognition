@@ -1,8 +1,6 @@
 import numpy as np
 from imageio import imread, imwrite
 from skimage.transform import rescale, resize
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 from skimage.color import rgb2gray
 
 import glob
