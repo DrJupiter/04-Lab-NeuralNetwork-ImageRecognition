@@ -9,8 +9,10 @@ import glob
 from datetime import datetime
 import os
 
+import sys
+
 def convert_images(input_dir,output_dir):
-    files = glob.glob(f"{input_dir}/*.jpg")
+    files = glob.glob(f"{input_dir}/*")
     for key, file in enumerate(files):
         image_raw = imread(f'{file}')
      #   new_img = rgb2gray(image_raw[:, :, :3])
@@ -22,12 +24,11 @@ def convert_images(input_dir,output_dir):
         try:
             new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
             new_img = rgb2gray(new_img[:, :, :3])
-            imwrite(f"{output_dir}/{key}.png", new_img)
+            imwrite(f"{output_dir}/{sys.argv[3]}{key}.png", new_img)
         except:
             pass
         
-dirq = "/home/klaus/Downloads/tmp/counter_data"
-convert_images(f"{dirq}", f"/home/klaus/Downloads/tmp/counter_data/realtest/")
+convert_images(f"{sys.argv[1]}", f"{sys.argv[2]}")
 #convert_images("D:\Pictures\lab4 test\QUT_fish_data\QUT_fish_data\images\\raw_images" , "D:\Pictures\lab4 test\Out2")
 
 import re
