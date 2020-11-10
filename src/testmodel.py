@@ -91,6 +91,6 @@ test_images(sys.argv[2])
 #np.savetxt(f"{sys.argv[4]}/results.txt", np.array(results)[:,:1])
 #print(np.array(results)[:,1])
 
-with open(f"{sys.argv[4]/results.txt}", "w") as txt_file:
+with open(f"{sys.argv[4]}/results.txt", "w") as txt_file:
     for line in results:
         txt_file.write(" ".join(line) + "\n")
