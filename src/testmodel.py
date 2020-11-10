@@ -1,3 +1,4 @@
+# model-path, test-path, h, out-path 
 import torch
 from imageio import imread
 
@@ -51,10 +52,39 @@ model.load_state_dict(torch.load(PATH_TO_MODEL))
 
 model.eval()
 
-img = imread(sys.argv[2])
-data = torch.from_numpy(img.flatten())
-data = data.type(torch.FloatTensor).to(device)
-result = model(data)
+#img = imread(sys.argv[2])
+#data = torch.from_numpy(img.flatten())
+#data = data.type(torch.FloatTensor).to(device)
+#result = model(data)
 #print(result[0], result[1])
 #print(result[0] > result[1], result[0] == result[1])
-print(result)
+#print(result)
+
+results = []
+
+failed = 0
+
+def test_images(input_dir):
+    files = glob.glob(f"{input_dir}/*")
+    for key, file in enumerate(files):
+        image_raw = imread(f'{file}')
+     #   new_img = rgb2gray(image_raw[:, :, :3])
+        if len(image_raw.shape) > 3:
+            image_raw = image_raw[:, :, :3]
+        
+        print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
+        image_width = 128
+        try:
+            new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
+            new_img = rgb2gray(new_img[:, :, :3])
+            data = torch.from_numpy(new_img.flatten())
+            data = data.type(torch.FloatTensor).to(device)
+            result = model(data)
+            results.append(result/10000) 
+        except:
+            failed = 1 + failed
+
+test_images(sys.argv[2])
+
+np.save_txt(f"{sys.argv[4]}/results.txt}", results)
+print(failed)
