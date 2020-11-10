@@ -76,9 +76,10 @@ def test_images(input_dir):
             image_raw = image_raw[:, :, :3]
         
         print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
-        image_width = 128
-        new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
-        new_img = rgb2gray(new_img[:, :, :3])
+#        image_width = 128
+#        new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
+#        new_img = rgb2gray(new_img[:, :, :3])
+        new_img = image_raw
         data = torch.from_numpy(new_img.flatten())
         data = data.type(torch.FloatTensor).to(device)
         result = model(data)
