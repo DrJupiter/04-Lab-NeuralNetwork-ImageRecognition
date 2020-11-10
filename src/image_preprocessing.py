@@ -11,10 +11,11 @@ import os
 
 import sys
 
-name = sys.argv[3]
+#name = sys.argv[3]
 
 def convert_images(input_dir,output_dir):
     files = glob.glob(f"{input_dir}/*")
+    image_width = 128
     for key, file in enumerate(files):
         try:
             image_raw = imread(f'{file}')
@@ -25,13 +26,13 @@ def convert_images(input_dir,output_dir):
             print("Made it 1")
             new_img = rgb2gray(new_img[:, :, :3])
             print("Made it 2")
-            imwrite(f"{output_dir}/{name}{key}.png", new_img)
+            imwrite(f"{output_dir}/fish{key}.png", new_img)
             print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
         except:
             pass
         
-convert_images(f"{sys.argv[1]}", f"{sys.argv[2]}")
-#convert_images("D:\Pictures\lab4 test\QUT_fish_data\QUT_fish_data\images\\raw_images" , "D:\Pictures\lab4 test\Out2")
+#convert_images(f"{sys.argv[1]}", f"{sys.argv[2]}")
+convert_images("D:\Downl\Fish data\Fish data" , "D:\Pictures\lab4 test\\test_out")
 
 import re
 
