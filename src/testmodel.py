@@ -83,9 +83,9 @@ def test_images(input_dir):
         data = torch.from_numpy(new_img.flatten())
         data = data.type(torch.FloatTensor).to(device)
         result = model(data)
-        results.append((result/10000, f"{os.path.basename(file)}")) 
+        results.append([result/10000, f"{os.path.basename(file)}"]) 
 
 
 test_images(sys.argv[2])
 
-np.savetxt(f"{sys.argv[4]}/results.txt", results)
+np.savetxt(f"{sys.argv[4]}/results.txt", np.array(results))
