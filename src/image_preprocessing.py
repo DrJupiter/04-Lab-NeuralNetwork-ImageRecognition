@@ -26,8 +26,8 @@ def convert_images(input_dir,output_dir):
         except:
             pass
         
-dirq = "/home/klaus/Downloads/tmp/counter_data/seg_pred/seg_pred"
-convert_images(f"{dirq}", f"/home/klaus/Downloads/tmp/counter_data/seg_pred/counter2/")
+dirq = "/home/klaus/Downloads/tmp/counter_data"
+convert_images(f"{dirq}", f"/home/klaus/Downloads/tmp/counter_data/realtest/")
 #convert_images("D:\Pictures\lab4 test\QUT_fish_data\QUT_fish_data\images\\raw_images" , "D:\Pictures\lab4 test\Out2")
 
 import re
