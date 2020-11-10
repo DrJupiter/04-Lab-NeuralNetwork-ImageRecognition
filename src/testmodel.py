@@ -7,6 +7,7 @@ from skimage.transform import rescale, resize
 import glob
 
 import sys
+import os
 
 PATH_TO_MODEL = sys.argv[1]
 
@@ -82,10 +83,9 @@ def test_images(input_dir):
         data = torch.from_numpy(new_img.flatten())
         data = data.type(torch.FloatTensor).to(device)
         result = model(data)
-        results.append(result/10000) 
+        results.append((result/10000, f"{os.path.basename(file)}")) 
 
 
 test_images(sys.argv[2])
 
 np.savetxt(f"{sys.argv[4]}/results.txt", results)
-print(failed)
