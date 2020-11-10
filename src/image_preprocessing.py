@@ -14,14 +14,11 @@ import sys
 def convert_images(input_dir,output_dir):
     files = glob.glob(f"{input_dir}/*")
     for key, file in enumerate(files):
-        image_raw = imread(f'{file}')
-     #   new_img = rgb2gray(image_raw[:, :, :3])
-        if len(image_raw.shape) > 3:
-            image_raw = image_raw[:, :, :3]
-        
-        print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
-        image_width = 128
         try:
+            image_raw = imread(f'{file}')
+            if len(image_raw.shape) > 3:
+                image_raw = image_raw[:, :, :3]
+            print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
             new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
             new_img = rgb2gray(new_img[:, :, :3])
             imwrite(f"{output_dir}/{sys.argv[3]}{key}.png", new_img)
