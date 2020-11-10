@@ -66,27 +66,25 @@ model.eval()
 
 results = []
 
+
 def test_images(input_dir):
     files = glob.glob(f"{input_dir}/*")
     failed = 0
     for key, file in enumerate(files):
         image_raw = imread(f'{file}')
-     #   new_img = rgb2gray(image_raw[:, :, :3])
         if len(image_raw.shape) > 3:
             image_raw = image_raw[:, :, :3]
         
         print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
         image_width = 128
-        try:
-            new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
-            new_img = rgb2gray(new_img[:, :, :3])
-            data = torch.from_numpy(new_img.flatten())
-            data = data.type(torch.FloatTensor).to(device)
-            result = model(data)
-            results.append(result/10000) 
-        except:
-            failed = 1 + failed
+        new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
+        new_img = rgb2gray(new_img[:, :, :3])
+        data = torch.from_numpy(new_img.flatten())
+        data = data.type(torch.FloatTensor).to(device)
+        result = model(data)
+        results.append(result/10000) 
     print(failed)
+
 
 test_images(sys.argv[2])
 
