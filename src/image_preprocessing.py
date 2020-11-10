@@ -11,6 +11,8 @@ import os
 
 import sys
 
+name = sys.argv[3]
+
 def convert_images(input_dir,output_dir):
     files = glob.glob(f"{input_dir}/*")
     for key, file in enumerate(files):
@@ -20,7 +22,8 @@ def convert_images(input_dir,output_dir):
                 image_raw = image_raw[:, :, :3]
             new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
             new_img = rgb2gray(new_img[:, :, :3])
-            imwrite(f"{output_dir}/{sys.argv[3]}{key}.png", new_img)
+            print("Made it")
+            imwrite(f"{output_dir}/{name}{key}.png", new_img)
             print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
         except:
             pass
