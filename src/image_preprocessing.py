@@ -20,9 +20,11 @@ def convert_images(input_dir,output_dir):
             image_raw = imread(f'{file}')
             if len(image_raw.shape) > 3:
                 image_raw = image_raw[:, :, :3]
+            print("Made it 0")
             new_img = rescale(image_raw, (image_width/image_raw.shape[0], image_width/image_raw.shape[1]), mode='reflect', multichannel=True, anti_aliasing=True)   
+            print("Made it 1")
             new_img = rgb2gray(new_img[:, :, :3])
-            print("Made it")
+            print("Made it 2")
             imwrite(f"{output_dir}/{name}{key}.png", new_img)
             print(image_raw.shape, f"File number {key} out of {len(files)}: {key/len(files) * 100}%")
         except:
