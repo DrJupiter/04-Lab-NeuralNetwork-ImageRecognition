@@ -86,5 +86,5 @@ def test_images(input_dir):
 
 test_images(sys.argv[2])
 
-np.save_txt(f"{sys.argv[4]}/results.txt}", results)
+np.save_txt(f"{sys.argv[4]}/results.txt", results)
 print(failed)
